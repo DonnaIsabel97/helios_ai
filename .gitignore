@@ -1,0 +1,45 @@
+# Python virtual environments
+venv/
+.venv/
+env/
+ENV/
+vnev
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Python build
+build/
+dist/
+*.egg-info/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Large datasets
+D840_PA_Model_FinGuard/data/creditcard.csv
+D840_PA_Model_FinSage/data/german_credit_numeric.csv
+
+# Optional: ignore all raw data files
+**/data/*.csv
+**/data/*.asc
+**/data/*.data
+**/data/*.zip

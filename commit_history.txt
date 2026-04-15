@@ -1,0 +1,19 @@
+2a09674 | 2026-03-20 | Add commit history
+4e7c4dd | 2026-03-20 | Adding optimized Finguard confusion matrix and ROC curve
+b16a077 | 2026-03-19 | Fixed bugs and add optimize
+53306b8 | 2026-03-19 | Add FinSage evaluation with probabilistic inference and confusion matrix
+0f42667 | 2026-03-19 | Implement FinSage Bayesian Network training with expert designed structured
+6e15114 | 2026-03-19 | Prepare FinSage dataset with feature selection, target transformation an discretization for Bayesian Network
+73407dc | 2026-03-19 | Add FinSage dataset loading for German credit numeric dataset
+f020515 | 2026-03-19 | Merge branch 'dev' of https://gitlab.com/wgu-gitlab-environment/student-repos/dcarsc2/d804-advanced-ai-for-computer-scientists into dev
+b3de8d9 | 2026-03-19 | Add german credit data
+dbae15f | 2026-03-19 | Add FinSage dataset loading and summary for South German Credit data
+daa6cb2 | 2026-03-19 | Add FinGuard hyperparameter optimization using GridSearchCV
+60da005 | 2026-03-19 | Load data and evaluate bug fixed
+d1e0971 | 2026-03-12 | Add Finguard test evaluation with confusion matrix and ROC curve
+30add73 | 2026-03-12 | Implement FinGuard XGBoost fraud detection model training and validation
+4c9c9ff | 2026-03-12 | Add FinGuard preprocessing with stratified splits ad scaling
+a9a0235 | 2026-03-12 | Add FinGuard dataset download and loading using kagglehub
+6c15263 | 2026-03-12 | Add git ignore
+17b9d4f | 2026-03-12 | Initialize project structure for D840 PA models and requirements
+58f623a | 2025-02-28 | Update file README.md
