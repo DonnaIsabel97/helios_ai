@@ -43,3 +43,5 @@ D840_PA_Model_FinSage/data/german_credit_numeric.csv
 **/data/*.asc
 **/data/*.data
 **/data/*.zip
+
+.env
