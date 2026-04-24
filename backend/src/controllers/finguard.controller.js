@@ -11,10 +11,10 @@ const predictFinGuardPath = path.resolve(
   "../../../ml/finguard/predict_finguard.py"
 );
 
-const pythonPath = path.resolve(
-  __dirname,
-  "../../../.venv/Scripts/python.exe"
-);
+const pythonPath =
+  process.env.NODE_ENV === "production"
+    ? "python3"
+    : path.resolve(__dirname, "../../../.venv/Scripts/python.exe");
 
 export const predictFraud = async (req, res, next) => {
   try {

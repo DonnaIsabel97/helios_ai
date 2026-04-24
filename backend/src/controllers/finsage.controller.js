@@ -11,10 +11,10 @@ const predictFinSagePath = path.resolve(
   "../../../ml/finsage/predict_finsage.py"
 );
 
-const pythonPath = path.resolve(
-  __dirname,
-  "../../../.venv/Scripts/python.exe"
-);
+const pythonPath =
+  process.env.NODE_ENV === "production"
+    ? "python3"
+    : path.resolve(__dirname, "../../../.venv/Scripts/python.exe");
 
 export const predictCreditRisk = async (req, res, next) => {
   try {
