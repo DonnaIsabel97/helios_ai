@@ -218,3 +218,63 @@ export const predictCreditRisk = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getCreditPredictions = async (req, res, next) => {
+  try {
+    const result = await pool.query(
+      `
+      SELECT
+        cp.id,
+        cp.application_id,
+        cp.loan_application_id,
+        cp.customer_id,
+        cp.loan_amount,
+        cp.duration_months,
+        cp.risk_probability,
+        cp.predicted_class,
+        cp.explanation_summary,
+        cp.model_version,
+        cp.created_at
+      FROM credit_predictions cp
+      ORDER BY cp.created_at DESC
+      `
+    );
+
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getCreditCases = async (req, res, next) => {
+  try {
+    const result = await pool.query(
+      `
+      SELECT
+        cc.id,
+        cc.credit_prediction_id,
+        cc.assigned_user_id,
+        cc.decision,
+        cc.notes,
+        cc.status,
+        cc.risk_level,
+        cc.created_at,
+        cc.updated_at,
+        cp.application_id,
+        cp.loan_amount,
+        cp.duration_months,
+        cp.risk_probability,
+        cp.predicted_class,
+        cp.explanation_summary
+      FROM credit_cases cc
+      JOIN credit_predictions cp
+        ON cc.credit_prediction_id = cp.id
+      ORDER BY cc.created_at DESC
+      `
+    );
+
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+};

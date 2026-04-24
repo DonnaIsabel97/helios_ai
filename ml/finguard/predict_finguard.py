@@ -27,7 +27,7 @@ def main():
         probability = model.predict_proba(df)[0][1]
 
         result = {
-            "fraud_score": round(float(probability), 4),
+            "fraud_score": float(probability),
             "predicted_label": "fraud" if int(prediction) == 1 else "legit"
         }
 

@@ -4,6 +4,8 @@ import random
 import pandas as pd
 import psycopg2
 import subprocess
+import sys
+import time
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -28,6 +30,12 @@ if not PREDICT_SCRIPT.exists():
 if not SOURCE_CSV.exists():
     raise FileNotFoundError(f"Source CSV not found: {SOURCE_CSV}")
 
+print("=== BACKFILL FINGUARD START ===")
+print("Current interpreter:", sys.executable)
+print("Prediction interpreter:", PYTHON_PATH)
+print("Prediction script:", PREDICT_SCRIPT)
+print("Source CSV:", SOURCE_CSV)
+
 conn = psycopg2.connect(SUPABASE_URL)
 cur = conn.cursor()
 
@@ -43,11 +51,36 @@ if not cards:
     conn.close()
     raise ValueError("No cards found. Run seed_cards.py first.")
 
-df = pd.read_csv(SOURCE_CSV).head(500)
+df = pd.read_csv(SOURCE_CSV)
+
+if "Class" not in df.columns:
+    cur.close()
+    conn.close()
+    raise ValueError("Source CSV must contain a Class column")
+
+legit_pool = df[df["Class"] == 0]
+fraud_pool = df[df["Class"] == 1]
+
+legit_sample_size = min(450, len(legit_pool))
+fraud_sample_size = min(50, len(fraud_pool))
+
+legit_df = legit_pool.sample(n=legit_sample_size, random_state=42)
+fraud_df = fraud_pool.sample(n=fraud_sample_size, random_state=42)
+
+sample_df = pd.concat([legit_df, fraud_df]).sample(frac=1, random_state=42).reset_index(drop=True)
+
+print(f"Loaded sample size: {len(sample_df)}")
+print(f"Legit source rows: {(sample_df['Class'] == 0).sum()}")
+print(f"Fraud source rows: {(sample_df['Class'] == 1).sum()}")
 
 processed = 0
+failed = 0
+fraud_predictions_count = 0
+flagged_predictions_count = 0
 
-for i, row in df.iterrows():
+for i, row in sample_df.iterrows():
+    print(f"\n[{i + 1}/{len(sample_df)}] Processing transaction row {i}")
+
     card_id, customer_id, account_id = random.choice(cards)
 
     payload = {
@@ -83,105 +116,166 @@ for i, row in df.iterrows():
         "Amount": float(row["Amount"])
     }
 
-    proc = subprocess.run(
-        [str(PYTHON_PATH), str(PREDICT_SCRIPT)],
-        input=json.dumps(payload),
-        text=True,
-        capture_output=True
-    )
+    start_time = time.time()
 
-    if proc.returncode != 0:
-        print(f"Prediction failed for transaction {i}: {proc.stderr or proc.stdout}")
+    try:
+        proc = subprocess.run(
+            [str(PYTHON_PATH), str(PREDICT_SCRIPT)],
+            input=json.dumps(payload),
+            text=True,
+            capture_output=True,
+            timeout=20
+        )
+    except subprocess.TimeoutExpired:
+        print(f"Timeout while predicting transaction row {i}")
+        failed += 1
         continue
 
-    result = json.loads(proc.stdout)
+    elapsed = round(time.time() - start_time, 2)
+    print(f"Subprocess finished in {elapsed}s")
+    print("Return code:", proc.returncode)
+
+    if proc.stdout:
+        print("STDOUT:", proc.stdout.strip())
+
+    if proc.stderr:
+        print("STDERR:", proc.stderr.strip())
+
+    if proc.returncode != 0:
+        print(f"Prediction failed for transaction row {i}: {proc.stderr or proc.stdout}")
+        failed += 1
+        continue
+
+    try:
+        result = json.loads(proc.stdout)
+    except json.JSONDecodeError:
+        print(f"Invalid JSON output for transaction row {i}")
+        failed += 1
+        continue
+
+    if result.get("error"):
+        print(f"Model returned error for transaction row {i}: {result['error']}")
+        failed += 1
+        continue
 
     fraud_score = float(result["fraud_score"])
     predicted_label = result["predicted_label"]
 
-    prediction_status = "flagged" if (predicted_label == "fraud" or fraud_score >= 0.7) else "normal"
+    prediction_status = "flagged" if (predicted_label == "fraud" or fraud_score >= 0.05) else "normal"
 
-    transaction_id = f"TX-{i+1:05d}"
+    if predicted_label == "fraud":
+        fraud_predictions_count += 1
 
-    cur.execute(
-        """
-        INSERT INTO fraud_predictions (
-            transaction_id,
-            customer_id,
-            account_id,
-            card_id,
-            amount,
-            transaction_time,
-            fraud_score,
-            predicted_label,
-            status,
-            model_version
-        )
-        VALUES (%s,%s,%s,%s,%s,NOW(),%s,%s,%s,%s)
-        RETURNING id
-        """,
-        (
-            transaction_id,
-            customer_id,
-            account_id,
-            card_id,
-            payload["Amount"],
-            fraud_score,
-            predicted_label,
-            prediction_status,
-            "finguard_v1"
-        )
-    )
+    if prediction_status == "flagged":
+        flagged_predictions_count += 1
 
-    prediction_id = cur.fetchone()[0]
+    transaction_id = f"TX-{i + 1:05d}"
 
-    if fraud_score >= 0.85 or predicted_label == "fraud":
-        priority = "high"
-        note = "High-risk fraud review suggested"
-    elif fraud_score >= 0.6:
-        priority = "medium"
-        note = "Moderate-risk transaction review suggested"
-    else:
-        priority = "low"
-        note = "Low-risk transaction review record"
-
-    cur.execute(
-        """
-        SELECT id
-        FROM fraud_cases
-        WHERE fraud_prediction_id = %s
-        """,
-        (prediction_id,)
-    )
-    existing_case = cur.fetchone()
-
-    if not existing_case:
+    try:
         cur.execute(
             """
-            INSERT INTO fraud_cases (
-                fraud_prediction_id,
-                assigned_user_id,
-                priority,
-                decision,
-                notes,
-                status
+            INSERT INTO fraud_predictions (
+                transaction_id,
+                customer_id,
+                account_id,
+                card_id,
+                amount,
+                transaction_time,
+                fraud_score,
+                predicted_label,
+                status,
+                model_version
             )
-            VALUES (%s,%s,%s,%s,%s,%s)
+            VALUES (%s,%s,%s,%s,%s,NOW(),%s,%s,%s,%s)
+            ON CONFLICT (transaction_id)
+            DO NOTHING
+            RETURNING id
             """,
             (
-                prediction_id,
-                None,
-                priority,
-                None,
-                note,
-                "open"
+                transaction_id,
+                customer_id,
+                account_id,
+                card_id,
+                payload["Amount"],
+                fraud_score,
+                predicted_label,
+                prediction_status,
+                "finguard_v1"
             )
         )
 
-    processed += 1
+        prediction_row = cur.fetchone()
 
-conn.commit()
+        if prediction_row is None:
+            print(f"Transaction {transaction_id} already exists, skipping")
+            conn.commit()
+            continue
+
+        prediction_id = prediction_row[0]
+
+        if fraud_score >= 0.20 or predicted_label == "fraud":
+            priority = "high"
+            note = "High-risk fraud review suggested"
+        elif fraud_score >= 0.05:
+            priority = "medium"
+            note = "Moderate-risk transaction review suggested"
+        else:
+            priority = "low"
+            note = "Low-risk transaction review record"
+
+        cur.execute(
+            """
+            SELECT id
+            FROM fraud_cases
+            WHERE fraud_prediction_id = %s
+            """,
+            (prediction_id,)
+        )
+        existing_case = cur.fetchone()
+
+        if not existing_case:
+            cur.execute(
+                """
+                INSERT INTO fraud_cases (
+                    fraud_prediction_id,
+                    assigned_user_id,
+                    priority,
+                    decision,
+                    notes,
+                    status
+                )
+                VALUES (%s,%s,%s,%s,%s,%s)
+                """,
+                (
+                    prediction_id,
+                    None,
+                    priority,
+                    None,
+                    note,
+                    "open"
+                )
+            )
+
+        conn.commit()
+        processed += 1
+        print(f"Inserted prediction and case for transaction {transaction_id}")
+        print(
+            f"Source label: {int(row['Class'])} | "
+            f"Model label: {predicted_label} | "
+            f"Fraud score: {fraud_score}"
+        )
+
+    except Exception as db_error:
+        conn.rollback()
+        print(f"Database error for transaction row {i}: {db_error}")
+        failed += 1
+        continue
+
+print("\n=== BACKFILL FINGUARD DONE ===")
+print(f"Processed successfully: {processed}")
+print(f"Failed: {failed}")
+print(f"Model predicted fraud count: {fraud_predictions_count}")
+print(f"Flagged prediction count: {flagged_predictions_count}")
+
 cur.close()
 conn.close()
-
-print(f"Processed {processed} transactions into fraud_predictions and fraud_cases")

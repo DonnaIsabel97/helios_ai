@@ -1,0 +1,20 @@
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.mini-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mini-list__row {
+  display: flex;
+  justify-content: space-between;
+  background: #fafcff;
+  border: 1px solid #edf2f8;
+  border-radius: 14px;
+  padding: 12px;
+}

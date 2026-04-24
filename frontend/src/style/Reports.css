@@ -1,0 +1,18 @@
+.reports-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.reports-chart-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+@media (max-width: 900px) {
+  .reports-summary,
+  .reports-chart-grid {
+    grid-template-columns: 1fr;
+  }
+}

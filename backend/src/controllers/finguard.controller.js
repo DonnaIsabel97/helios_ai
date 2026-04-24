@@ -179,3 +179,63 @@ export const predictFraud = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getFraudPredictions = async (req, res, next) => {
+  try {
+    const result = await pool.query(
+      `
+      SELECT
+        fp.id,
+        fp.transaction_id,
+        fp.customer_id,
+        fp.account_id,
+        fp.card_id,
+        fp.amount,
+        fp.transaction_time,
+        fp.fraud_score,
+        fp.predicted_label,
+        fp.status,
+        fp.model_version,
+        fp.created_at
+      FROM fraud_predictions fp
+      ORDER BY fp.created_at DESC
+      `
+    );
+
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getFraudCases = async (req, res, next) => {
+  try {
+    const result = await pool.query(
+      `
+      SELECT
+        fc.id,
+        fc.fraud_prediction_id,
+        fc.assigned_user_id,
+        fc.priority,
+        fc.decision,
+        fc.notes,
+        fc.status,
+        fc.created_at,
+        fc.updated_at,
+        fp.transaction_id,
+        fp.amount,
+        fp.fraud_score,
+        fp.predicted_label,
+        fp.transaction_time
+      FROM fraud_cases fc
+      JOIN fraud_predictions fp
+        ON fc.fraud_prediction_id = fp.id
+      ORDER BY fc.created_at DESC
+      `
+    );
+
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+};

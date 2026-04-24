@@ -1,0 +1,121 @@
+.app-layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  background: var(--bg);
+}
+
+.side-menu {
+  background: white;
+  border-right: 1px solid var(--border);
+  padding: 24px 18px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.side-menu__brand {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 22px;
+}
+
+.side-menu__user {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 14px;
+  background: #fbfdff;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  cursor: pointer;
+  text-align: left;
+}
+
+.side-menu__avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--navy);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+}
+
+.side-menu__user-info strong {
+  display: block;
+  color: var(--navy);
+}
+
+.side-menu__user-info span {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.side-menu__dropdown {
+  margin-top: 10px;
+  margin-bottom: 18px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  background: white;
+}
+
+.side-menu__dropdown button {
+  width: 100%;
+  background: white;
+  border: none;
+  padding: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.side-menu__dropdown button + button {
+  border-top: 1px solid var(--border);
+}
+
+.side-menu__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.side-menu__nav a {
+  text-decoration: none;
+  color: #30465b;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+}
+
+.side-menu__nav a img {
+  width: 18px;
+  height: 18px;
+}
+
+.side-menu__nav a.active {
+  background: rgba(16, 55, 92, 0.08);
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.app-layout__content {
+  padding: 28px;
+}
+
+@media (max-width: 960px) {
+  .app-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .side-menu {
+    position: relative;
+    height: auto;
+  }
+}

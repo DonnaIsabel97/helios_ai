@@ -1,0 +1,23 @@
+.upload-modal h2 {
+  margin-top: 0;
+  color: var(--navy);
+}
+
+.upload-modal__picker {
+  display: inline-flex;
+  padding: 12px 16px;
+  border: 1px dashed var(--navy);
+  border-radius: 14px;
+  cursor: pointer;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.upload-modal__picker input {
+  display: none;
+}
+
+.upload-modal__filename {
+  margin-top: 14px;
+  color: var(--muted);
+}

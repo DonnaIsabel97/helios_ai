@@ -1,0 +1,67 @@
+.account-profile {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 22px;
+  margin-bottom: 22px;
+}
+
+.account-profile__avatar-wrap {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+}
+
+.account-profile__avatar,
+.account-profile__avatar-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+
+.account-profile__avatar {
+  background: var(--gold);
+  color: var(--navy);
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.account-profile__avatar-image {
+  object-fit: cover;
+}
+
+.account-profile__avatar-wrap button {
+  border: 1px solid var(--border);
+  background: white;
+  border-radius: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+.account-profile__info {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+
+.account-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+@media (max-width: 900px) {
+  .account-profile,
+  .account-grid {
+    grid-template-columns: 1fr;
+  }
+}
