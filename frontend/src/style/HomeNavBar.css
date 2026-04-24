@@ -11,9 +11,7 @@
   justify-content: space-between;
   padding: 0 28px;
   z-index: 200;
-  transition: background 0.3s, box-shadow 0.3s, border-color 0.3s;
-  /* Default: transparent so it blends with the hero's dark bg */
-  background: rgba(13, 31, 50, 0.0);
+  background: #0e3152;
   border-bottom: 1px solid transparent;
 }
 
