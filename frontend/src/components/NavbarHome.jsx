@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
-import "../style/HomeNavbar.css";
+import "../style/HomeNavBar.css";
 
 export default function NavbarHome({ onLoginClick }) {
   const navigate = useNavigate();
