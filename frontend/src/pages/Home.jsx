@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import NavbarHome from "../components/NavbarHome";
+import Footer from "../components/Footer";
 import LoginModal from "../modals/LoginModal";
 import dashboardIcon from "../assets/dashboard.png";
 import "../style/Home.css";
@@ -129,33 +130,6 @@ export default function Home() {
         </div>
       </section>
  
-      {/* ── TICKER ── */}
-      <div className="home-ticker">
-        <div className="home-ticker__track">
-          {/* Duplicate items for seamless loop */}
-          {[
-            { label: "Transactions monitored", value: "2.4M+" },
-            { label: "Avg detection time", value: "1.2s" },
-            { label: "Risk accuracy", value: "98.7%" },
-            { label: "Cases resolved", value: "142K" },
-            { label: "Financial institutions", value: "340+" },
-            { label: "Fraud prevented", value: "$1.8B" },
-            { label: "Uptime SLA", value: "99.99%" },
-            { label: "Transactions monitored", value: "2.4M+" },
-            { label: "Avg detection time", value: "1.2s" },
-            { label: "Risk accuracy", value: "98.7%" },
-            { label: "Cases resolved", value: "142K" },
-            { label: "Financial institutions", value: "340+" },
-            { label: "Fraud prevented", value: "$1.8B" },
-            { label: "Uptime SLA", value: "99.99%" },
-          ].map((item, i) => (
-            <div key={i} className="home-ticker__item">
-              {item.label} — <strong>{item.value}</strong>
-            </div>
-          ))}
-        </div>
-      </div>
- 
       {/* ── CORE MODULES ── */}
       <section className="home-section" ref={aboutRef}>
         <div className="home-section__intro">
@@ -283,37 +257,11 @@ export default function Home() {
         </div>
       </section>
  
-      {/* ── FOOTER ── */}
-      <footer className="home-footer">
-        <div className="home-footer__wave">
-          <svg viewBox="0 0 1440 110" preserveAspectRatio="none">
-            <path
-              d="M0,55 C200,95 400,105 600,80 C800,55 1000,95 1200,75 C1320,62 1380,68 1440,72 L1440,110 L0,110 Z"
-              fill="#0d1c2b"
-            />
-          </svg>
-        </div>
- 
-        <div className="home-footer__content">
-          <div className="home-footer__brand">
-            <h3>Helios</h3>
-            <p>AI-powered financial intelligence platform</p>
-          </div>
-          <div className="home-footer__links">
-            <span>About</span>
-            <span>Documentation</span>
-            <span>Privacy</span>
-            <span>Contact</span>
-          </div>
-        </div>
- 
-        <div className="home-footer__bottom">
-          <span>© 2026 Helios. All rights reserved.</span>
-          <span>SOC 2 Type II · ISO 27001 · GDPR</span>
-        </div>
-      </footer>
- 
       {openLogin ? <LoginModal onClose={() => setOpenLogin(false)} /> : null}
+        <Footer
+        onLoginClick={() => setOpenLogin(true)}
+        onScrollToAbout={() => aboutRef.current?.scrollIntoView({ behavior: "smooth" })}
+      />
     </div>
   );
 }
