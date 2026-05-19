@@ -9,6 +9,7 @@ import userRoutes from "./routes/user.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
 import finguardRoutes from "./routes/finguard.routes.js";
 import finsageRoutes from "./routes/finsage.routes.js";
+import contactRoutes from "./routes/form.routes.js";
 
 dotenv.config();
 
@@ -53,6 +54,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/finguard", finguardRoutes);
 app.use("/api/finsage", finsageRoutes);
+app.use("api/contactForm", contactRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

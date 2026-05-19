@@ -10,6 +10,7 @@ import Cases from "./pages/Cases.jsx";
 import Reports from "./pages/Reports.jsx";
 import Account from "./pages/Account.jsx";
 import Settings from "./pages/Settings.jsx";
+import ComingSoon from "./pages/CominSoon.jsx";
 
 function ProtectedLayout() {
   const token = localStorage.getItem("token");
@@ -26,7 +27,8 @@ function ProtectedLayout() {
 }
 
 export default function App() {
-  return (
+  return <ComingSoon/>;
+    /*
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -43,6 +45,6 @@ export default function App() {
           <Route path="/settings" element={<Settings />} />
         </Route>
       </Routes>
-    </BrowserRouter>
-  );
+    </BrowserRouter> */
+
 }

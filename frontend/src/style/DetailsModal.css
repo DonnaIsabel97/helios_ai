@@ -1,0 +1,274 @@
+/* DetailsModal.css — shared by CaseDetailsModal, CreditDetailsModal, TransactionDetailsModal */
+
+/* Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26,23,20,0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+  z-index: 500;
+  animation: overlayIn 0.2s ease both;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Slide-in panel */
+.details-modal {
+  width: min(520px, 100vw);
+  height: 100vh;
+  background: var(--cream);
+  border-left: 1px solid var(--border);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  animation: panelIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+  scrollbar-width: thin;
+  scrollbar-color: var(--stone) transparent;
+}
+
+.details-modal::-webkit-scrollbar { width: 4px; }
+.details-modal::-webkit-scrollbar-thumb { background: var(--stone); border-radius: 2px; }
+
+@keyframes panelIn {
+  from { transform: translateX(40px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+/* Header */
+.details-modal__header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px;
+  background: var(--cream);
+  border-bottom: 1px solid var(--border);
+  z-index: 10;
+}
+
+.details-modal__back {
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: white;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--muted);
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
+
+.details-modal__back:hover {
+  background: var(--ivory);
+  color: var(--charcoal);
+}
+
+.details-modal__header h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Risk/status topline */
+.details-modal__risk,
+.case-topline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  background: white;
+  border-bottom: 1px solid var(--border);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--charcoal);
+  flex-wrap: wrap;
+}
+
+.case-topline span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding-right: 12px;
+  border-right: 1px solid var(--border2);
+}
+
+.case-topline span:last-child { border-right: none; }
+
+/* Sections */
+.details-section {
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--border2);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.details-section:last-child { border-bottom: none; }
+
+.details-section h3 {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.details-section p {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: var(--charcoal);
+  line-height: 1.6;
+}
+
+.details-section button {
+  align-self: flex-start;
+  padding: 7px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: white;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--charcoal);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.details-section button:hover {
+  background: var(--ink);
+  color: var(--cream);
+  border-color: var(--ink);
+}
+
+/* Two-col grid inside modal */
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-bottom: 1px solid var(--border2);
+}
+
+.details-grid section {
+  padding: 22px 24px;
+  border-right: 1px solid var(--border2);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.details-grid section:last-child { border-right: none; }
+
+.details-grid section h3 {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.details-grid section p {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--charcoal);
+  line-height: 1.6;
+}
+
+/* Scenario simulator */
+.simulator-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.simulator-grid label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--charcoal);
+  gap: 16px;
+}
+
+.simulator-grid input,
+.simulator-grid select {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--ivory);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--ink);
+  outline: none;
+  min-width: 120px;
+  transition: border-color 0.18s;
+}
+
+.simulator-grid input:focus,
+.simulator-grid select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-lt);
+}
+
+.scenario-result {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+/* Notes textarea */
+.details-section textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: white;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: var(--ink);
+  resize: vertical;
+  outline: none;
+  line-height: 1.7;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+
+.details-section textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-lt);
+}
+
+.details-section textarea::placeholder { color: var(--warm); }
+
+@media (max-width: 560px) {
+  .details-modal { width: 100vw; }
+  .details-grid { grid-template-columns: 1fr; }
+  .details-grid section { border-right: none; border-bottom: 1px solid var(--border2); }
+}

@@ -1,4 +1,4 @@
-import "../style/TransactionalDetailsModal.css";
+import "../style/DetailsModal.css";
 
 export default function TransactionDetailsModal({ item, onClose }) {
   if (!item) return null;
@@ -6,7 +6,7 @@ export default function TransactionDetailsModal({ item, onClose }) {
   const score = Number(item.fraud_score || 0);
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-overlay" onClick={onClose}> 
       <div className="details-modal" onClick={(event) => event.stopPropagation()}>
         <div className="details-modal__header">
           <button className="details-modal__back" onClick={onClose}>

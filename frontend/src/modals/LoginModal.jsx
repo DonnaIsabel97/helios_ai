@@ -18,7 +18,7 @@ export default function LoginModal({ onClose }) {
     setLoading(true);
     setError("");
     try {
-      const response = await api.post("/users/login", form);
+      const response = await api.post("https://helios-ai-0cfp.onrender.com/api/users/login", form);
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify(response.data));
       onClose();
@@ -90,7 +90,7 @@ export default function LoginModal({ onClose }) {
                 Signing in…
               </>
             ) : (
-              "Sign in to Helios →"
+              "Sign in to Helios"
             )}
           </button>
         </form>

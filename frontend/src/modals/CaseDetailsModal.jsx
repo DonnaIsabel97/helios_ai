@@ -1,4 +1,4 @@
-import "../style/CaseDetailsModal.css";
+import "../style/DetailsModal.css";
 
 export default function CaseDetailsModal({ item, onClose }) {
   if (!item) return null;

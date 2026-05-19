@@ -13,17 +13,17 @@ export default function About() {
     {
       title: "FinGuard",
       icon: dashboardIcon,
-      desc: "Real-time fraud detection powered by AI, instantly flagging suspicious transactions and creating cases for review.",
+      desc: "Real-time fraud detection powered by AI — instantly surfacing suspicious transactions and routing them into review-ready cases.",
     },
     {
       title: "FinSage",
       icon: dashboardIcon,
-      desc: "AI-driven credit risk scoring with clear probability insights and decision support.",
+      desc: "AI-driven credit risk scoring with transparent probability insights and analyst-facing decision support.",
     },
     {
       title: "Case Management",
       icon: dashboardIcon,
-      desc: "Investigate, track, and resolve fraud and credit cases in a unified workflow.",
+      desc: "Investigate, track, and resolve fraud and credit cases in a unified workflow built for compliance confidence.",
     },
   ];
 
@@ -32,26 +32,28 @@ export default function About() {
       <NavbarHome onLoginClick={() => setOpenLogin(true)} />
 
       <main className="about-main">
+
+        {/* ── Hero ── */}
         <section className="about-hero">
           <div className="about-hero__content">
             <span className="about-eyebrow">About Helios</span>
 
-            <h1>Helping financial teams make smarter and faster decisions.</h1>
+            <h1>
+              Helping financial teams make <em>smarter</em> decisions.
+            </h1>
 
             <p>
               Helios is an AI-powered financial intelligence platform designed
               to detect fraud, assess credit risk, and streamline analyst review
-              workflows in one unified system.
+              workflows — all in one unified system.
             </p>
 
             <button
               type="button"
               className="about-primary-btn"
-              onClick={() => {
-                window.location.href = "/contact-us";
-              }}
+              onClick={() => { window.location.href = "/contact-us"; }}
             >
-              Contact Us
+              Contact us →
             </button>
           </div>
 
@@ -59,21 +61,16 @@ export default function About() {
             <div className="about-workbench">
               <aside className="about-workbench__menu">
                 <div className="about-workbench__brand">Helios</div>
-
-                {["Dashboard", "FinGuard", "FinSage", "Cases", "Reports"].map(
-                  (item) => (
-                    <div
-                      key={item}
-                      className={`about-workbench__item${
-                        item === "Dashboard"
-                          ? " about-workbench__item--active"
-                          : ""
-                      }`}
-                    >
-                      {item}
-                    </div>
-                  )
-                )}
+                {["Dashboard", "FinGuard", "FinSage", "Cases", "Reports"].map((item) => (
+                  <div
+                    key={item}
+                    className={`about-workbench__item${
+                      item === "Dashboard" ? " about-workbench__item--active" : ""
+                    }`}
+                  >
+                    {item}
+                  </div>
+                ))}
               </aside>
 
               <div className="about-workbench__content">
@@ -103,29 +100,10 @@ export default function About() {
                     <span>Score</span>
                     <span>Status</span>
                   </div>
-
                   {[
-                    {
-                      id: "TX123",
-                      amount: "$1,200",
-                      score: "0.91",
-                      status: "Flagged",
-                      cls: "flagged",
-                    },
-                    {
-                      id: "APP084",
-                      amount: "$8,900",
-                      score: "0.82",
-                      status: "Pending",
-                      cls: "pending",
-                    },
-                    {
-                      id: "TX245",
-                      amount: "$450",
-                      score: "0.18",
-                      status: "Clear",
-                      cls: "clear",
-                    },
+                    { id: "TX123",  amount: "$1,200", score: "0.91", status: "Flagged", cls: "flagged" },
+                    { id: "APP084", amount: "$8,900", score: "0.82", status: "Pending", cls: "pending" },
+                    { id: "TX245",  amount: "$450",   score: "0.18", status: "Clear",   cls: "clear"   },
                   ].map((row) => (
                     <div key={row.id} className="about-workbench__row">
                       <span>{row.id}</span>
@@ -144,6 +122,7 @@ export default function About() {
           </div>
         </section>
 
+        {/* ── Features ── */}
         <section className="about-features">
           <div className="about-section-header">
             <span>Core Capabilities</span>
@@ -156,7 +135,6 @@ export default function About() {
                 <div className="about-feature-icon">
                   <img src={item.icon} alt={`${item.title} icon`} />
                 </div>
-
                 <h3>{item.title}</h3>
                 <p>{item.desc}</p>
               </article>
@@ -164,6 +142,7 @@ export default function About() {
           </div>
         </section>
 
+        {/* ── Mission ── */}
         <section className="about-mission">
           <div className="about-mission__visual">
             <div className="about-small-image">
@@ -173,19 +152,20 @@ export default function About() {
 
           <div className="about-mission__content">
             <span className="about-eyebrow">Our Mission</span>
-            <h2>Reduce risk and improve financial decision-making.</h2>
+            <h2>Reduce risk. Improve financial decision-making.</h2>
             <p>
               Our mission is to help financial institutions move from scattered
               risk signals to clear, actionable intelligence. Helios gives
-              analysts the tools to review, explain, and act on fraud and credit
-              risk faster.
+              analysts the tools to review, explain, and act on fraud and
+              credit risk — faster and with greater confidence.
             </p>
           </div>
         </section>
+
       </main>
 
       {openLogin && <LoginModal onClose={() => setOpenLogin(false)} />}
-      <Footer onLoginClick={() => setOpenLogin(true)} />
+      <Footer />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import "../style/CreditDetailsModal.css";
+import "../style/DetailsModal.css";
 
 export default function CreditDetailsModal({ item, onClose }) {
   const [loanAmount, setLoanAmount] = useState(Number(item?.loan_amount || 0));

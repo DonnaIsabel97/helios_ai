@@ -1,81 +1,154 @@
+/* Footer.css */
+
 .home-footer {
   position: relative;
   z-index: 1;
-  margin-top: clamp(60px, 10vw, 120px);
-  background: #0d1c2b;
+  background: var(--ink);
   color: white;
+  font-family: 'Jost', sans-serif;
 }
 
-.home-footer__wave {
-  line-height: 0;
-}
-
-.home-footer__wave svg {
+/* Top border accent */
+.home-footer::before {
+  content: '';
   display: block;
-  width: 100%;
-  height: clamp(60px, 8vw, 110px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.4;
 }
 
+/* Remove old wave — replaced with clean rule */
+.home-footer__wave {
+  display: none;
+}
+
+/* ── Main content grid ── */
 .home-footer__content {
-  max-width: 1380px;
+  max-width: 1320px;
   margin: 0 auto;
-  padding: clamp(28px, 4vw, 48px) clamp(16px, 3vw, 24px) 32px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: clamp(24px, 4vw, 40px);
-  flex-wrap: wrap;
+  padding: clamp(48px, 6vw, 72px) clamp(24px, 5vw, 64px) clamp(36px, 4vw, 48px);
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: clamp(24px, 4vw, 48px);
+  align-items: start;
 }
 
+/* Brand column */
 .home-footer__brand h3 {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(1.15rem, 1.8vw, 1.4rem);
-  font-weight: 700;
-  margin: 0 0 8px;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: white;
+  margin: 0 0 10px;
 }
 
 .home-footer__brand p {
-  margin: 0;
-  color: rgba(255,255,255,0.5);
-  font-size: 0.9rem;
+  margin: 0 0 24px;
+  color: rgba(255,255,255,0.4);
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.7;
+  max-width: 220px;
 }
 
-.home-footer__links {
+/* Compliance badges */
+.home-footer__badges {
   display: flex;
   flex-wrap: wrap;
-  gap: clamp(16px, 2.5vw, 32px);
-  color: rgba(255, 255, 255, 0.68);
+  gap: 8px;
 }
 
-.home-footer__links span {
+.home-footer__badge {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 4px;
+  padding: 4px 10px;
+}
+
+/* Link columns */
+.home-footer__col h4 {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin: 0 0 18px;
+}
+
+.home-footer__col-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.home-footer__col-links span {
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.55);
   cursor: pointer;
-  transition: color 0.2s;
-  font-size: 0.93rem;
+  transition: color 0.18s;
+  width: fit-content;
 }
 
-.home-footer__links span:hover {
-  color: var(--gold);
+.home-footer__col-links span:hover {
+  color: rgba(255,255,255,0.9);
 }
 
+/* Old flat links kept for compatibility */
+.home-footer__links {
+  display: none;
+}
+
+/* ── Bottom bar ── */
 .home-footer__bottom {
-  max-width: 1380px;
+  max-width: 1320px;
   margin: 0 auto;
-  padding: 22px clamp(16px, 3vw, 24px) 36px;
-  color: rgba(255, 255, 255, 0.38);
-  font-size: 0.84rem;
-  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 20px clamp(24px, 5vw, 64px) 32px;
+  border-top: 1px solid rgba(255,255,255,0.06);
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.25);
+}
+
+.home-footer__bottom a {
+  color: rgba(255,255,255,0.25);
+  text-decoration: none;
+  transition: color 0.18s;
+}
+
+.home-footer__bottom a:hover {
+  color: rgba(255,255,255,0.55);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .home-footer__content {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 40px;
+  }
 }
 
 @media (max-width: 640px) {
   .home-footer__content {
-    flex-direction: column;
-    gap: 24px;
+    grid-template-columns: 1fr;
+    gap: 28px;
   }
 
-  .home-footer__bottom { flex-direction: column; text-align: center; }
+  .home-footer__bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 6px;
+  }
 }
