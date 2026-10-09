@@ -45,3 +45,6 @@ D840_PA_Model_FinSage/data/german_credit_numeric.csv
 **/data/*.zip
 
 .env
+# Downloaded LendingClub source and local preprocessing cache
+ml/finsage/data/lendingclub/*.gz
+ml/finsage/data/lendingclub/*.pkl

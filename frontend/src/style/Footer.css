@@ -1,72 +1,65 @@
-/* Footer.css */
+/* Footer.css — Helios v3 Cosmic */
 
 .home-footer {
   position: relative;
   z-index: 1;
-  background: var(--ink);
-  color: white;
+  background: var(--deep);
+  border-top: 1px solid var(--rim);
   font-family: 'Jost', sans-serif;
 }
 
-/* Top border accent */
+/* Rose gradient top accent */
 .home-footer::before {
   content: '';
   display: block;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  opacity: 0.4;
+  background: linear-gradient(90deg, transparent 0%, var(--rose) 40%, var(--violet) 70%, transparent 100%);
+  opacity: 0.35;
 }
 
-/* Remove old wave — replaced with clean rule */
-.home-footer__wave {
-  display: none;
-}
+.home-footer__wave { display: none; }
 
-/* ── Main content grid ── */
+/* ── Grid ── */
 .home-footer__content {
   max-width: 1320px;
   margin: 0 auto;
   padding: clamp(48px, 6vw, 72px) clamp(24px, 5vw, 64px) clamp(36px, 4vw, 48px);
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
   gap: clamp(24px, 4vw, 48px);
   align-items: start;
 }
 
-/* Brand column */
+/* Brand */
 .home-footer__brand h3 {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 1.5rem;
   font-weight: 500;
-  letter-spacing: 0.04em;
-  color: white;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
   margin: 0 0 10px;
 }
 
 .home-footer__brand p {
   margin: 0 0 24px;
-  color: rgba(255,255,255,0.4);
-  font-size: 0.85rem;
+  color: var(--text3);
+  font-size: 0.84rem;
   font-weight: 300;
   line-height: 1.7;
   max-width: 220px;
 }
 
-/* Compliance badges */
-.home-footer__badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
+.home-footer__badges { display: flex; flex-wrap: wrap; gap: 8px; }
 
 .home-footer__badge {
   font-family: 'Jost', sans-serif;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
-  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text3);
+  border: 1px solid var(--rim);
   border-radius: 4px;
   padding: 4px 10px;
 }
@@ -74,81 +67,50 @@
 /* Link columns */
 .home-footer__col h4 {
   font-family: 'Jost', sans-serif;
-  font-size: 0.68rem;
+  font-size: 0.64rem;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
+  color: var(--text3);
   margin: 0 0 18px;
 }
 
-.home-footer__col-links {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+.home-footer__col-links { display: flex; flex-direction: column; gap: 10px; }
 
 .home-footer__col-links span {
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   font-weight: 300;
-  color: rgba(255,255,255,0.55);
+  color: rgba(240,236,248,0.4);
   cursor: pointer;
   transition: color 0.18s;
   width: fit-content;
 }
 
-.home-footer__col-links span:hover {
-  color: rgba(255,255,255,0.9);
-}
+.home-footer__col-links span:hover { color: var(--text); }
 
-/* Old flat links kept for compatibility */
-.home-footer__links {
-  display: none;
-}
+.home-footer__links { display: none; }
 
-/* ── Bottom bar ── */
+/* Bottom bar */
 .home-footer__bottom {
   max-width: 1320px;
   margin: 0 auto;
   padding: 20px clamp(24px, 5vw, 64px) 32px;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid var(--rim);
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 300;
-  color: rgba(255,255,255,0.25);
+  color: var(--text3);
 }
 
-.home-footer__bottom a {
-  color: rgba(255,255,255,0.25);
-  text-decoration: none;
-  transition: color 0.18s;
-}
-
-.home-footer__bottom a:hover {
-  color: rgba(255,255,255,0.55);
-}
-
-/* ── Responsive ── */
 @media (max-width: 1024px) {
-  .home-footer__content {
-    grid-template-columns: 1fr 1fr;
-    gap: 32px 40px;
-  }
+  .home-footer__content { grid-template-columns: 1fr 1fr; gap: 32px 40px; }
 }
 
 @media (max-width: 640px) {
-  .home-footer__content {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-
-  .home-footer__bottom {
-    flex-direction: column;
-    text-align: center;
-    gap: 6px;
-  }
+  .home-footer__content { grid-template-columns: 1fr; }
+  .home-footer__bottom { flex-direction: column; text-align: center; }
 }

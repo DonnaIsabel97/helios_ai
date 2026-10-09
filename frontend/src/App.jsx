@@ -27,8 +27,7 @@ function ProtectedLayout() {
 }
 
 export default function App() {
-  return <ComingSoon/>;
-    /*
+  return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -45,6 +44,6 @@ export default function App() {
           <Route path="/settings" element={<Settings />} />
         </Route>
       </Routes>
-    </BrowserRouter> */
-
+    </BrowserRouter>
+  );
 }

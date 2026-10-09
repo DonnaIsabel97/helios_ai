@@ -1,3 +1,4 @@
+// About.jsx — Helios v3 Cosmic
 import { useState } from "react";
 import NavbarHome from "../components/NavbarHome";
 import Footer from "../components/Footer";
@@ -37,17 +38,12 @@ export default function About() {
         <section className="about-hero">
           <div className="about-hero__content">
             <span className="about-eyebrow">About Helios</span>
-
-            <h1>
-              Helping financial teams make <em>smarter</em> decisions.
-            </h1>
-
+            <h1>Helping financial teams make <em>smarter</em> decisions.</h1>
             <p>
               Helios is an AI-powered financial intelligence platform designed
               to detect fraud, assess credit risk, and streamline analyst review
               workflows — all in one unified system.
             </p>
-
             <button
               type="button"
               className="about-primary-btn"
@@ -64,9 +60,7 @@ export default function About() {
                 {["Dashboard", "FinGuard", "FinSage", "Cases", "Reports"].map((item) => (
                   <div
                     key={item}
-                    className={`about-workbench__item${
-                      item === "Dashboard" ? " about-workbench__item--active" : ""
-                    }`}
+                    className={`about-workbench__item${item === "Dashboard" ? " about-workbench__item--active" : ""}`}
                   >
                     {item}
                   </div>
@@ -86,19 +80,14 @@ export default function About() {
                     </div>
                   ))}
                 </div>
-
                 <div className="about-workbench__chart">
                   {Array.from({ length: 9 }).map((_, i) => (
                     <div key={i} className="about-workbench__chart-bar" />
                   ))}
                 </div>
-
                 <div className="about-workbench__table">
                   <div className="about-workbench__head">
-                    <span>ID</span>
-                    <span>Amount</span>
-                    <span>Score</span>
-                    <span>Status</span>
+                    <span>ID</span><span>Amount</span><span>Score</span><span>Status</span>
                   </div>
                   {[
                     { id: "TX123",  amount: "$1,200", score: "0.91", status: "Flagged", cls: "flagged" },
@@ -110,9 +99,7 @@ export default function About() {
                       <span>{row.amount}</span>
                       <span>{row.score}</span>
                       <span>
-                        <span className={`about-status about-status--${row.cls}`}>
-                          {row.status}
-                        </span>
+                        <span className={`about-status about-status--${row.cls}`}>{row.status}</span>
                       </span>
                     </div>
                   ))}
@@ -128,7 +115,6 @@ export default function About() {
             <span>Core Capabilities</span>
             <h2>One platform for fraud, credit, and case review</h2>
           </div>
-
           <div className="about-feature-grid">
             {capabilities.map((item) => (
               <article className="about-feature-card" key={item.title}>
@@ -149,7 +135,6 @@ export default function About() {
               <img src={aboutImage} alt="Helios mission" />
             </div>
           </div>
-
           <div className="about-mission__content">
             <span className="about-eyebrow">Our Mission</span>
             <h2>Reduce risk. Improve financial decision-making.</h2>

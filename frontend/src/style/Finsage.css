@@ -1,1 +1,53 @@
-@import "./index.css";
+/* Scope application columns to FinSage so other page layouts stay independent. */
+.finsage-page .data-table__head,
+.finsage-page .data-table__row {
+  display: grid;
+  grid-template-columns:
+    minmax(260px, 2.4fr)
+    minmax(120px, 1fr)
+    minmax(100px, 0.8fr)
+    minmax(120px, 1fr)
+    minmax(130px, 1fr);
+  column-gap: 20px;
+  align-items: center;
+}
+
+/* Scroll as one table on small screens, keeping headings aligned with values. */
+.finsage-page .data-table {
+  width: 100%;
+  overflow-x: auto;
+}
+.finsage-page .data-table__head,
+.finsage-page .expandable-row-wrap {
+  min-width: 850px;
+}
+.finsage-page .data-table__row {
+  width: 100%;
+  min-height: 48px;
+}
+
+/* Show full IDs on hover while preventing long UUIDs from crowding other columns. */
+.finsage-page .data-table__row > span {
+  min-width: 0;
+}
+.finsage-page .data-table__row > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.finsage-page .data-table__row > span:not(:first-child) {
+  white-space: nowrap;
+}
+.finsage-page .data-table__row > span:nth-child(4) {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.finsage-page .data-table__row .risk-dot {
+  flex-shrink: 0;
+  margin-right: 0;
+}
+.finsage-page .data-table__row:focus-visible {
+  outline: 1px solid var(--text2);
+  outline-offset: -2px;
+}

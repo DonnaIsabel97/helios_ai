@@ -1,1 +1,134 @@
-@import "./index.css";
+/* Align the five transaction columns with their headers. */
+.finguard-page .data-table__head,
+.finguard-page .data-table__row {
+  grid-template-columns:
+    minmax(220px, 2fr)
+    minmax(130px, 1.2fr)
+    minmax(110px, 1fr)
+    minmax(120px, 1fr)
+    minmax(110px, 1fr);
+  gap: 16px;
+}
+
+/* Scroll on smaller screens instead of wrapping columns into another row. */
+.finguard-page .data-table {
+  overflow-x: auto;
+}
+
+.finguard-page .data-table__head,
+.finguard-page .expandable-row-wrap {
+  min-width: 800px;
+}
+
+/* Keep long identifiers inside their assigned column. */
+.finguard-page .data-table__row > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Use the existing theme's colored dots beside each risk label. */
+.finguard-page .risk-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.finguard-page .risk-label .risk-dot {
+  flex-shrink: 0;
+  margin-right: 0;
+}
+/* Native selectors keep keyboard support and match the existing pink controls. */
+.finguard-page .finguard-filter { display: inline-flex; align-items: center; gap: 8px; color: var(--text2); font-size: 0.78rem; }
+.finguard-filter select { color-scheme: dark; background: var(--surface); color: var(--text2); border: 1px solid var(--rim); border-radius: var(--radius-sm); padding: 7px 12px; font: inherit; cursor: pointer; }
+.finguard-filter select:focus-visible, .finguard-page .filter-bar button:focus-visible { outline: 1px solid var(--text2); outline-offset: 2px; }
+/* Use neutral borders while retaining a visible keyboard focus indicator. */
+.finguard-filter select:hover { border-color: var(--text3); }
+.finguard-page .filter-results { color: var(--text2); font-size: 0.78rem; margin-bottom: 14px; line-height: 1.6; }
+.finguard-page .risk-dot.unknown { background: var(--text2); }
+
+/* Reserve a small check slot so IDs stay aligned for both review states. */
+.finguard-page .transaction-id-cell { display: flex; align-items: center; gap: 8px; }
+.finguard-page .transaction-id-cell .transaction-reviewed { flex: 0 0 15px; color: #72c49a; font-weight: 600; font-size: 1rem; }
+.finguard-page .transaction-id-cell > span:last-child { min-width: 0; overflow-wrap: anywhere; }
+.finguard-page .expanded-row button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* A separate checkbox at the far left avoids nesting a control inside the row button. */
+.finguard-page .transaction-review-row { display: flex; align-items: center; min-width: 844px; }
+.finguard-page .transaction-review-row > .data-table__row { flex: 1; min-width: 800px; }
+.finguard-page .data-table__head { margin-left: 44px; min-width: 800px; }
+.finguard-page .expandable-row-wrap { min-width: 844px; }
+.finguard-page .transaction-review-checkbox {
+  appearance: none; flex: 0 0 18px; width: 18px; height: 18px; margin: 0 13px;
+  display: grid; place-items: center; border: 1px solid var(--text3); border-radius: 4px;
+  background: var(--surface2); cursor: pointer;
+}
+.finguard-page .transaction-review-checkbox:checked { background: #72c49a; border-color: #72c49a; }
+.finguard-page .transaction-review-checkbox:checked::after { content: "✓"; color: #0c0a12; font-size: 14px; font-weight: 700; line-height: 1; }
+.finguard-page .transaction-review-checkbox:focus-visible { outline: 2px solid var(--text2); outline-offset: 3px; }
+.finguard-page .transaction-review-checkbox:disabled { opacity: 0.45; cursor: not-allowed; }
+/* Centered confirmation uses the same surface, pink accent, and fonts as Helios. */
+.review-confirmation { margin: auto; width: min(420px, calc(100vw - 32px)); padding: 28px; border: 1px solid var(--rose-bd); border-radius: var(--radius); background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
+.review-confirmation::backdrop { background: rgba(12,10,18,0.72); backdrop-filter: blur(4px); }
+.review-confirmation h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.7rem; font-weight: 400; margin-bottom: 14px; }
+.review-confirmation p { font-family: 'Jost', sans-serif; font-size: 0.88rem; line-height: 1.6; color: var(--text2); margin-bottom: 12px; }
+.review-confirmation .review-confirmation__id { color: var(--rose); overflow-wrap: anywhere; }
+.review-confirmation__actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; }
+.review-confirmation button { padding: 8px 22px; border-radius: 8px; border: 1px solid var(--rim); background: var(--surface2); color: var(--text2); font: inherit; cursor: pointer; }
+.review-confirmation button:last-child { background: var(--rose-dim); border-color: var(--rose-bd); color: var(--rose); }
+.review-confirmation button:focus-visible { outline: 1px solid var(--text2); outline-offset: 3px; }
+.review-confirmation button:disabled { opacity: 0.5; cursor: wait; }
+
+/* Give review its own column, aligned independently from transaction IDs. */
+.finguard-page .transaction-review-heading {
+  display: flex;
+  align-items: center;
+  min-width: 888px;
+  border-bottom: 1px solid var(--rim);
+  margin-bottom: 4px;
+}
+.transaction-review-heading__label {
+  flex: 0 0 88px;
+  text-align: center;
+  color: var(--text3);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.finguard-page .transaction-review-heading .data-table__head {
+  margin: 0;
+  flex: 1;
+  border-bottom: 0;
+}
+.finguard-page .transaction-review-row,
+.finguard-page .expandable-row-wrap { min-width: 888px; }
+.finguard-page .transaction-review-checkbox { margin: 0 35px; }
+.finguard-page .transaction-review-checkbox:checked { background: #32835c; border-color: #32835c; }
+.finguard-page .transaction-review-checkbox:checked::after { color: #fff; }
+/* A quiet success message appears only after the server confirms the change. */
+.review-save-notice { position: fixed; right: 24px; bottom: 24px; max-width: calc(100vw - 48px); z-index: 600; pointer-events: none; }
+.review-save-notice.is-visible {
+  padding: 12px 18px;
+  background: var(--surface2);
+  border: 1px solid var(--rim);
+  border-left: 3px solid #72c49a;
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  color: var(--text);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.85rem;
+}
+.review-confirmation__actions { flex-wrap: wrap; }
+
+/* Rows open the details panel directly; allow longer analyst status labels. */
+.finguard-page .transaction-row-wrap { min-width: 940px; }
+.finguard-page .data-table__head,
+.finguard-page .data-table__row {
+  grid-template-columns: minmax(200px, 2fr) minmax(120px, 1.2fr) minmax(110px, 1fr) minmax(110px, 1fr) minmax(190px, 1.5fr);
+}
+.finguard-page .transaction-review-heading,
+.finguard-page .transaction-review-row { min-width: 940px; }
+.finguard-page .transaction-review-row > .data-table__row,
+.finguard-page .transaction-review-heading .data-table__head { min-width: 852px; }
+.finguard-page .analyst-status { line-height: 1.5; }
+.finguard-page .transaction-review-checkbox:checked:disabled { opacity: 1; cursor: default; }

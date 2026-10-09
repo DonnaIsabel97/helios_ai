@@ -5,7 +5,6 @@ export default function Footer() {
     <footer className="home-footer">
       <div className="home-footer__content">
 
-        {/* Brand */}
         <div className="home-footer__brand">
           <h3>Helios</h3>
           <p>AI-powered financial intelligence for risk and fraud teams.</p>
@@ -16,7 +15,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Platform */}
         <div className="home-footer__col">
           <h4>Platform</h4>
           <div className="home-footer__col-links">
@@ -26,7 +24,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Company */}
         <div className="home-footer__col">
           <h4>Company</h4>
           <div className="home-footer__col-links">
@@ -36,7 +33,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Legal */}
         <div className="home-footer__col">
           <h4>Legal</h4>
           <div className="home-footer__col-links">

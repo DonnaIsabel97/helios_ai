@@ -1,7 +1,219 @@
-.details-modal textarea {
-  width: 100%;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px;
-  resize: vertical;
+/* Scope the dark theme to transaction details; other modals keep their styles. */
+.transaction-details {
+  --cream: var(--surface);
+  --border: var(--rim);
+  --border2: var(--rim2);
+  --ink: var(--text);
+  --charcoal: var(--text2);
+  --muted: var(--text2);
+  --stone: var(--text3);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: -16px 0 48px rgba(0, 0, 0, 0.35);
+}
+.transaction-details .details-modal__header { background: var(--surface); }
+.transaction-details .details-modal__back {
+  background: var(--surface2);
+  border-color: var(--rim);
+  color: var(--text2);
+}
+.transaction-details .details-modal__back:hover {
+  background: var(--rose-dim);
+  border-color: var(--rose-bd);
+  color: var(--rose);
+}
+.transaction-details .details-modal__back:focus-visible {
+  outline: 1px solid var(--text2);
+  outline-offset: 2px;
+}
+.transaction-details .details-modal__risk {
+  background: var(--surface2);
+  color: var(--text);
+  border-color: var(--rim);
+}
+.transaction-details .details-grid p { overflow-wrap: anywhere; }
+.transaction-details .details-section button {
+  background: var(--surface2);
+  border-color: var(--rim);
+  color: var(--text2);
+}
+.transaction-details .details-section button:hover {
+  background: var(--rose-dim);
+  color: var(--rose);
+  border-color: var(--rose-bd);
+}
+.transaction-details .button-row button:first-child {
+  background: var(--rose-dim);
+  color: var(--rose);
+  border-color: var(--rose-bd);
+}
+.transaction-details textarea {
+  background: var(--surface2);
+  color: var(--text);
+  border: 1px solid var(--rim);
+}
+.transaction-details textarea::placeholder { color: var(--text3); }
+/* Slowly brighten and soften the dot without flashing or changing its meaning. */
+.transaction-details .transaction-risk-light {
+  width: 8px;
+  height: 8px;
+  margin: 0;
+  flex-shrink: 0;
+  --risk-light: #72c49a;
+  background: var(--risk-light);
+  animation: transaction-risk-glow 2.8s ease-in-out infinite;
+}
+.transaction-details .transaction-risk-light.high { --risk-light: #e07060; }
+.transaction-details .transaction-risk-light.medium { --risk-light: var(--gold); }
+.transaction-details .transaction-risk-light.unknown { --risk-light: var(--text2); animation: none; }
+@keyframes transaction-risk-glow {
+  0%, 100% { opacity: 0.65; box-shadow: 0 0 2px var(--risk-light); }
+  50% { opacity: 1; box-shadow: 0 0 10px var(--risk-light); }
+}
+/* Respect users who prefer reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .transaction-details .transaction-risk-light { animation: none; }
+}
+/* The risk badge shares the Back button's shape and dark surface. */
+.transaction-details .details-modal__risk { background: var(--surface); }
+.transaction-risk-badge { display: inline-flex; align-items: center; gap: 9px; padding: 7px 14px; border: 1px solid var(--rim); border-radius: 8px; background: var(--surface2); font-size: 0.78rem; }
+.transaction-account { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 0.85rem; color: var(--text2); font-weight: 300; overflow-wrap: anywhere; }
+.transaction-account > span { min-width: 0; }
+.transaction-details .account-visibility { display: inline-flex; align-items: center; justify-content: center; padding: 6px; border: 1px solid var(--rim); border-radius: 8px; background: var(--surface2); color: var(--text2); cursor: pointer; }
+.transaction-details .account-visibility:hover { color: var(--text); }
+.transaction-details .account-visibility:focus-visible { outline: 1px solid var(--text2); outline-offset: 2px; }
+
+/* Keep the risk badge area free of horizontal dividers. */
+.transaction-details .details-modal__header,
+.transaction-details .details-modal__risk {
+  border-bottom: none;
+}
+
+/* Put the risk badge beside the title and separate the header from the details. */
+.transaction-details .details-modal__header {
+  border-bottom: 1px solid var(--rim);
+  gap: 10px;
+}
+.transaction-details .details-modal__header h2 {
+  flex: 1;
+  min-width: 0;
+}
+.transaction-details .details-modal__header .transaction-risk-badge {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+@media (max-width: 420px) {
+  .transaction-details .details-modal__header { flex-wrap: wrap; }
+  .transaction-details .details-modal__header .transaction-risk-badge { margin-left: auto; }
+}
+
+/* A two-level header leaves room for the full ID and a distinct risk badge. */
+.transaction-details .transaction-header {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 20px;
+  padding: 20px 24px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--rim);
+}
+.transaction-header__navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.transaction-header__eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text2);
+}
+.transaction-header__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+.transaction-header__identity { min-width: 0; flex: 1; }
+.transaction-details .transaction-header h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.7rem;
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.15;
+  white-space: normal;
+  overflow: visible;
+  margin-bottom: 8px;
+}
+.transaction-header__id {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text2);
+  overflow-wrap: anywhere;
+}
+.transaction-details .transaction-header .transaction-risk-badge {
+  margin: 0;
+  padding: 8px 12px;
+}
+@media (max-width: 380px) {
+  .transaction-header__summary { flex-wrap: wrap; }
+  .transaction-header__identity { flex-basis: 100%; }
+}
+
+/* Clearly show unavailable actions while saving or without edit permission. */
+.transaction-details button:disabled, .transaction-details textarea:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* Only the actual saved or pending decision receives emphasis. */
+.transaction-details .transaction-action-options button { background: var(--surface2); color: var(--text2); border-color: var(--rim); }
+.transaction-details .transaction-action-options button.is-saved { background: var(--rose-dim); color: var(--rose); border-color: var(--rose-bd); opacity: 1; }
+.transaction-details .transaction-action-options button.is-pending { border-color: var(--rose); color: var(--rose); background: var(--surface2); }
+.transaction-details .action-saved-label { font-size: 0.68rem; }
+.transaction-action-confirm { border: 1px solid var(--rose-bd); border-radius: 8px; padding: 12px; background: var(--rose-dim); }
+.transaction-action-confirm .button-row { margin-top: 10px; }
+.case-activity-list { display: flex; flex-direction: column; }
+.case-activity-entry { padding: 14px 0; border-bottom: 1px solid var(--rim); font-family: 'Jost', sans-serif; font-size: 0.84rem; color: var(--text2); }
+.case-activity-entry:last-child { border-bottom: 0; }
+.case-activity-entry summary { display: flex; align-items: center; justify-content: space-between; gap: 18px; cursor: pointer; list-style: none; line-height: 1.6; }
+.case-activity-entry summary::-webkit-details-marker { display: none; }
+.case-activity-entry summary:focus-visible { outline: 1px solid var(--text2); outline-offset: 4px; }
+.case-activity-entry strong { color: var(--text); font-weight: 500; }
+.case-activity-entry time, .case-activity-entry small { display: block; font-size: 0.72rem; color: var(--text2); margin-top: 4px; }
+.case-activity-expand { flex-shrink: 0; width: 24px; text-align: center; font-size: 1.2rem; color: var(--rose); }
+.case-activity-expand::before { content: '+'; }
+.case-activity-entry[open] .case-activity-expand::before { content: '−'; }
+.transaction-details .case-activity-note { white-space: pre-wrap; overflow-wrap: anywhere; margin-top: 12px; padding: 12px; border-radius: 8px; background: var(--surface2); color: var(--text); }
+.transaction-details .case-activity-legacy { font-size: 0.78rem; color: var(--text2); }
+
+/* Align the unsaved indicator at the right edge below the note field. */
+.transaction-details .transaction-note-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.transaction-details .transaction-note-footer p {
+  margin: 0 0 0 auto;
+  text-align: right;
+  font-size: 0.78rem;
+}
+
+/* Override the generic first-button pink styling for unselected action options. */
+.transaction-details .button-row.transaction-action-options button:not(.is-saved):not(.is-pending) {
+  background: var(--surface2);
+  border-color: var(--rim);
+  color: var(--text2);
+}
+.transaction-details .button-row.transaction-action-options button.is-saved {
+  background: var(--rose-dim);
+  border-color: var(--rose-bd);
+  color: var(--rose);
+  opacity: 1;
+}
+.transaction-details .button-row.transaction-action-options button.is-pending {
+  background: var(--surface2);
+  border-color: var(--rose);
+  color: var(--rose);
 }

@@ -37,7 +37,7 @@ export default function Finsage() {
   const highRiskCount = rows.filter((item) => Number(item.risk_probability || 0) >= 0.7).length;
 
   return (
-    <div className="page-shell">
+    <div className="page-shell finsage-page">
       <div className="page-header">
         <h1>FinSage</h1>
         <p>Credit Risk Analysis</p>
@@ -60,7 +60,7 @@ export default function Finsage() {
 
         <div className="data-table">
           <div className="data-table__head">
-            <span>ID</span>
+            <span>Application</span>
             <span>Amount</span>
             <span>Risk Score</span>
             <span>Risk Level</span>
@@ -77,9 +77,10 @@ export default function Finsage() {
                 <button
                   className="data-table__row data-table__row--button"
                   onClick={() => setExpandedRow(expanded ? null : item.id)}
+                  aria-expanded={expanded}
                 >
-                  <span>{item.application_id}</span>
-                  <span>${Number(item.loan_amount).toFixed(0)}</span>
+                  <span title={item.application_number || "Reference unavailable"}>{item.application_number || "Reference unavailable"}</span>
+                  <span>${Number(item.loan_amount).toFixed(2)}</span>
                   <span>{score.toFixed(2)}</span>
                   <span>
                     <span className={`risk-dot ${risk.toLowerCase()}`} /> {risk}
@@ -104,7 +105,7 @@ export default function Finsage() {
       </section>
 
       {selectedItem ? (
-        <CreditDetailsModal item={selectedItem} onClose={() => setSelectedItem(null)} />
+        <CreditDetailsModal key={selectedItem.id} item={selectedItem} onClose={() => setSelectedItem(null)} />
       ) : null}
     </div>
   );

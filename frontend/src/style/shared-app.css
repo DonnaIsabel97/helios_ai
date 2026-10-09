@@ -1,0 +1,188 @@
+/* shared-app.css — Helios v3 inner app styles
+   Import this once (e.g. in App.jsx or index.css)
+   alongside SideMenu.css and each page's own CSS.
+   ─────────────────────────────────────────────── */
+
+/* ── Page shell ── */
+.page-shell {
+  padding: clamp(28px,4vw,44px) clamp(24px,4vw,48px);
+  display: flex; flex-direction: column; gap: 22px;
+}
+
+/* ── Page header ── */
+.page-header {
+  display: flex; align-items: baseline;
+  justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--rim);
+}
+.page-header h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.9rem,3.5vw,2.6rem); font-weight: 300;
+  letter-spacing: 0.01em; color: var(--text); line-height: 1;
+}
+.page-header p {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.82rem; font-weight: 300; color: var(--text3);
+  letter-spacing: 0.04em;
+}
+
+/* ── Metric grid ── */
+.metric-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+
+/* ── Panel ── */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--rim);
+  border-radius: var(--radius);
+  padding: 22px;
+}
+.panel h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.15rem; font-weight: 400;
+  color: var(--text); letter-spacing: 0.01em;
+  margin-bottom: 16px;
+}
+
+/* ── Filter bar ── */
+.filter-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.filter-bar button {
+  padding: 7px 16px; border-radius: var(--radius-sm);
+  border: 1px solid var(--rim); background: var(--surface);
+  font-family: 'Jost', sans-serif; font-size: 0.78rem; font-weight: 400;
+  letter-spacing: 0.04em; color: var(--text2); cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.filter-bar button:hover { background: var(--surface2); border-color: rgba(255,255,255,0.14); color: var(--text); }
+.filter-bar button.active { background: var(--rose-dim); color: var(--rose); border-color: var(--rose-bd); }
+
+/* ── Data table ── */
+.data-table { display: flex; flex-direction: column; width: 100%; }
+.data-table__head {
+  display: grid; padding: 8px 12px 10px;
+  border-bottom: 1px solid var(--rim); margin-bottom: 4px;
+}
+.data-table__head span {
+  font-family: 'Jost', sans-serif; font-size: 0.66rem; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3);
+}
+.data-table__row {
+  display: grid; align-items: center;
+  padding: 11px 12px; border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  transition: background 0.15s, border-color 0.15s;
+}
+.data-table__row span {
+  font-family: 'Jost', sans-serif; font-size: 0.84rem; font-weight: 300; color: var(--text2);
+}
+.data-table__row--button {
+  background: transparent; width: 100%; text-align: left; cursor: pointer;
+}
+.data-table__row:hover, .data-table__row--button:hover {
+  background: var(--surface2); border-color: var(--rim);
+}
+
+/* ── Expandable rows ── */
+.expandable-row-wrap { display: flex; flex-direction: column; }
+.expanded-row {
+  background: var(--surface2); border: 1px solid var(--rim);
+  border-top: none; border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  padding: 16px 18px; margin-bottom: 4px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.expanded-row p {
+  font-family: 'Jost', sans-serif; font-size: 0.84rem; font-weight: 300; color: var(--text3);
+}
+
+/* ── Risk dots ── */
+.risk-dot {
+  display: inline-block; width: 7px; height: 7px;
+  border-radius: 50%; margin-right: 5px; vertical-align: middle;
+}
+.risk-dot.high   { background: #e07060; box-shadow: 0 0 6px rgba(224,112,96,0.5); }
+.risk-dot.medium { background: var(--gold); box-shadow: 0 0 6px rgba(201,169,110,0.4); }
+.risk-dot.low    { background: #72c49a; box-shadow: 0 0 6px rgba(114,196,154,0.4); }
+
+/* ── Button row ── */
+.button-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.button-row button {
+  padding: 8px 16px; border-radius: var(--radius-sm);
+  border: 1px solid var(--rim); background: var(--surface);
+  font-family: 'Jost', sans-serif; font-size: 0.78rem; font-weight: 500;
+  letter-spacing: 0.04em; color: var(--text2); cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.button-row button:hover { background: var(--surface2); color: var(--text); border-color: rgba(255,255,255,0.14); }
+.button-row button:first-child {
+  background: var(--rose-dim); color: var(--rose); border-color: var(--rose-bd);
+}
+.button-row button:first-child:hover { background: rgba(232,111,163,0.22); }
+
+/* ── Mini list ── */
+.mini-list { display: flex; flex-direction: column; }
+.mini-list__row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid var(--rim2);
+  font-family: 'Jost', sans-serif; font-size: 0.84rem; font-weight: 300; color: var(--text2);
+}
+.mini-list__row:last-child { border-bottom: none; }
+.mini-list__row span:last-child { font-size: 0.78rem; color: var(--text3); font-weight: 300; }
+
+/* ── Timeline ── */
+.timeline { list-style: none; display: flex; flex-direction: column; }
+.timeline li {
+  font-family: 'Jost', sans-serif; font-size: 0.84rem; font-weight: 300;
+  color: var(--text2); padding: 10px 0 10px 20px;
+  position: relative; border-bottom: 1px solid var(--rim2);
+}
+.timeline li:last-child { border-bottom: none; }
+.timeline li::before {
+  content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+  width: 6px; height: 6px; border-radius: 50%; background: var(--rose); opacity: 0.6;
+}
+
+/* ── Fake chart ── */
+.fake-chart {
+  height: 160px; border-radius: 10px;
+  background: var(--surface2); border: 1px solid var(--rim);
+  position: relative; overflow: hidden;
+}
+.fake-chart::after {
+  content: 'Chart'; position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Jost', sans-serif; font-size: 0.68rem; font-weight: 400;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--text3);
+}
+
+/* ── Progress bar ── */
+.progress-wrap { display: flex; align-items: center; gap: 12px; }
+.progress-bar {
+  flex: 1; height: 4px; background: var(--surface2); border-radius: 999px; overflow: hidden;
+}
+.progress-bar > div {
+  height: 100%; border-radius: 999px;
+  background: linear-gradient(90deg, var(--rose), #e07060);
+  transition: width 0.6s ease;
+}
+.progress-wrap > span {
+  font-family: 'Jost', sans-serif; font-size: 0.82rem; font-weight: 400;
+  color: var(--text2); min-width: 36px; text-align: right;
+}
+
+/* ── Textarea (shared for modals / account) ── */
+.panel textarea, .details-section textarea {
+  width: 100%; padding: 12px 14px;
+  border: 1px solid var(--rim); border-radius: 10px;
+  background: var(--surface2);
+  font-family: 'Jost', sans-serif; font-size: 0.88rem; font-weight: 300;
+  color: var(--text); resize: vertical; outline: none; line-height: 1.7;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+.panel textarea:focus, .details-section textarea:focus {
+  border-color: var(--rose-bd);
+  box-shadow: 0 0 0 3px var(--rose-dim);
+}
+.panel textarea::placeholder, .details-section textarea::placeholder { color: var(--text3); }
+
+@media (max-width: 900px) { .metric-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .metric-grid { grid-template-columns: 1fr; } .page-shell { padding: 18px 16px; } }

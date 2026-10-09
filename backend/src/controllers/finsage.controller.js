@@ -234,8 +234,13 @@ export const getCreditPredictions = async (req, res, next) => {
         cp.predicted_class,
         cp.explanation_summary,
         cp.model_version,
-        cp.created_at
+        cp.created_at,
+        la.application_number,
+        customer.full_name AS applicant_name,
+        customer.customer_number
       FROM credit_predictions cp
+      LEFT JOIN loan_applications la ON la.id::text=COALESCE(cp.loan_application_id::text, cp.application_id) AND la.customer_id=cp.customer_id
+      LEFT JOIN customers customer ON customer.id=cp.customer_id
       ORDER BY cp.created_at DESC
       `
     );

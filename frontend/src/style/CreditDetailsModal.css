@@ -1,4 +1,48 @@
-.scenario-result {
-  font-weight: 700;
-  color: var(--navy);
+/* Scope the dark design tokens to FinSage's detail panel. */
+.credit-details {
+  --cream: var(--surface); --border: var(--rim); --border2: var(--rim2);
+  --ink: var(--text); --charcoal: var(--text2); --muted: var(--text2);
+  --stone: var(--text3); --ivory: var(--surface2); --warm: var(--text3);
+  background: var(--surface); color: var(--text); box-shadow: -16px 0 48px rgba(0,0,0,.35);
 }
+.credit-details .credit-header { display: flex; flex-direction: column; align-items: stretch; gap: 20px; padding: 20px 24px 24px; background: var(--surface); border-bottom: 1px solid var(--rim); }
+.credit-header__nav, .credit-header__summary { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.credit-header__nav > span { font-size: .65rem; letter-spacing: .16em; text-transform: uppercase; color: var(--text2); }
+.credit-header__summary > div { min-width: 0; }
+.credit-details .credit-header h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.7rem; font-weight: 400; white-space: normal; margin-bottom: 8px; }
+.credit-header__summary p { font-size: .78rem; color: var(--text2); overflow-wrap: anywhere; }
+.credit-risk-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid var(--rim); border-radius: 8px; background: var(--surface2); font-size: .78rem; white-space: nowrap; }
+.credit-risk-badge .risk-dot { margin: 0; flex-shrink: 0; }
+.credit-details .details-modal__back, .credit-details .details-section button, .credit-details .credit-reveal { background: var(--surface2); border: 1px solid var(--rim); border-radius: 8px; color: var(--text2); cursor: pointer; }
+.credit-details .details-modal__back:hover, .credit-details .details-section button:hover, .credit-details .credit-reveal:hover { background: var(--rose-dim); color: var(--rose); border-color: var(--rose-bd); }
+.credit-details .button-row button:first-child { background: var(--rose-dim); color: var(--rose); border-color: var(--rose-bd); }
+.credit-details .details-grid p { overflow-wrap: anywhere; }
+.credit-private-field { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; color: var(--text2); font-size: .85rem; font-weight: 300; line-height: 1.6; }
+.credit-private-field > span { min-width: 0; overflow-wrap: anywhere; }
+.credit-details .credit-reveal { display: inline-flex; padding: 6px; }
+.credit-details textarea, .credit-details .simulator-grid input, .credit-details .simulator-grid select { background: var(--surface2); color: var(--text); border-color: var(--rim); color-scheme: dark; }
+.credit-details .simulator-grid input, .credit-details .simulator-grid select { width: 140px; min-width: 0; }
+.credit-details .scenario-result { color: var(--rose); font-weight: 400; }
+.credit-details button:focus-visible, .credit-details input:focus-visible, .credit-details select:focus-visible, .credit-details textarea:focus-visible { outline: 1px solid var(--text2); outline-offset: 2px; }
+@media(max-width: 380px) { .credit-header__summary { flex-wrap: wrap; } }
+
+/* Saved decisions share the pink selection style; other choices stay neutral. */
+.credit-details .button-row button:first-child {background:var(--surface2);color:var(--text2);border-color:var(--rim);}
+.credit-details .button-row button.credit-selected {background:var(--rose-dim);color:var(--rose);border-color:var(--rose-bd);}
+.credit-note-footer {display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:12px;}
+.credit-confirm button {margin-right:8px;}
+.credit-details button:disabled {opacity:.5;cursor:not-allowed;}
+.credit-history article {border-bottom:1px solid var(--rim);padding:14px 0;color:var(--text2);}
+.credit-history time {display:block;font-size:12px;color:var(--text3);margin-top:5px;}
+.credit-history summary {display:flex;justify-content:space-between;align-items:center;cursor:pointer;gap:12px;list-style:none;}
+.credit-expand::after {content:'+';color:var(--rose);font-size:20px;}
+.credit-history details[open] .credit-expand::after {content:'−';}
+.credit-note-text {white-space:pre-wrap;overflow-wrap:anywhere;}
+
+/* Keep exact debt entry aligned with the existing dark scenario controls. */
+.credit-custom-debt {display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--text2);}
+.credit-custom-debt input {width:140px;min-width:0;padding:8px;border:1px solid var(--rim);border-radius:8px;}
+
+.credit-income-editor label {display:flex;flex-direction:column;gap:6px;color:var(--text2);}
+.credit-income-editor input {width:100%;box-sizing:border-box;padding:8px;border:1px solid var(--rim);border-radius:8px;}
+.credit-income-editor button {margin:8px 6px 0 0;}
